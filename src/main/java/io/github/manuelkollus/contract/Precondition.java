@@ -43,14 +43,15 @@ public final class Precondition {
     List<ContractFailure> failures = new ArrayList<>();
     for ( MethodParameter parameter : method.parameters() ) {
       Check check = findCheckForParameter(parameter);
-      if (check.validateParameter(parameter)) {
-        ContractFailure failure = ContractFailure.newBuilder()
-          .withMethod(method)
-          .withParameter(parameter)
-          .withCheck(check)
-          .create();
-        failures.add(failure);
+      if (!check.validateParameter(parameter)) {
+        continue;
       }
+      ContractFailure failure = ContractFailure.newBuilder()
+        .withMethod(method)
+        .withParameter(parameter)
+        .withCheck(check)
+        .create();
+      failures.add(failure);
     }
     return failures;
   }
