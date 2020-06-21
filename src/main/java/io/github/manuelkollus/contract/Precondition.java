@@ -44,11 +44,11 @@ public final class Precondition {
     for ( MethodParameter parameter : method.parameters() ) {
       Check check = findCheckForParameter(parameter);
       if (check.validateParameter(parameter)) {
-        ContractFailure failure = ContractFailure.create(
-          method,
-          parameter,
-          check
-        );
+        ContractFailure failure = ContractFailure.newBuilder()
+          .withMethod(method)
+          .withParameter(parameter)
+          .withCheck(check)
+          .create();
         failures.add(failure);
       }
     }
@@ -69,7 +69,7 @@ public final class Precondition {
   private void reportContractFailure(ContractFailure failure) {
     Contract contract = failure.method()
       .contract();
-    MethodParameter parameter = failure.methodParameter();
+    MethodParameter parameter = failure.parameter();
     Check check = failure.check();
     ErrorMessage errorMessage = check.createErrorMessage(parameter);
     errorMessage.throwException(contract.error());

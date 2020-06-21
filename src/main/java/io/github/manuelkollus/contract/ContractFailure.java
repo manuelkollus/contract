@@ -1,23 +1,22 @@
 package io.github.manuelkollus.contract;
 
-import java.util.Objects;
-
 import io.github.manuelkollus.contract.check.Check;
+import io.github.manuelkollus.contract.check.EmptyCheck;
 import io.github.manuelkollus.contract.method.Method;
 import io.github.manuelkollus.contract.method.MethodParameter;
 
 public final class ContractFailure {
-  private final Method method;
-  private final MethodParameter methodParameter;
-  private final Check check;
+  private Method method;
+  private MethodParameter parameter;
+  private Check check;
 
   private ContractFailure(
     Method method,
-    MethodParameter methodParameter,
+    MethodParameter parameter,
     Check check
   ) {
     this.method = method;
-    this.methodParameter = methodParameter;
+    this.parameter = parameter;
     this.check = check;
   }
 
@@ -25,29 +24,55 @@ public final class ContractFailure {
     return method;
   }
 
-  public MethodParameter methodParameter() {
-    return methodParameter;
+  public MethodParameter parameter() {
+    return parameter;
   }
 
   public Check check() {
     return check;
   }
 
-  public static final class Builder {
-
-  }
-  public static ContractFailure create(
-    Method method,
-    MethodParameter methodParameter,
-    Check check
-  ) {
-    Objects.requireNonNull(method);
-    Objects.requireNonNull(methodParameter);
-    Objects.requireNonNull(check);
-    return new ContractFailure(
-      method,
-      methodParameter,
-      check
+  public static Builder newBuilder() {
+    ContractFailure prototype = new ContractFailure(
+      Method.newBuilder().create(),
+      MethodParameter.newBuilder().create(),
+      EmptyCheck.create()
     );
+    return newBuilder(prototype);
+  }
+
+  public static Builder newBuilder(ContractFailure prototype) {
+    return new Builder(prototype);
+  }
+
+  public static final class Builder {
+    private final ContractFailure prototype;
+
+    private Builder(ContractFailure prototype) {
+      this.prototype = prototype;
+    }
+
+    public Builder withMethod(Method method) {
+      this.prototype.method = method;
+      return this;
+    }
+
+    public Builder withParameter(MethodParameter parameter) {
+      this.prototype.parameter = parameter;
+      return this;
+    }
+
+    public Builder withCheck(Check check) {
+      this.prototype.check = check;
+      return this;
+    }
+
+    public ContractFailure create() {
+      return new ContractFailure(
+        prototype.method,
+        prototype.parameter,
+        prototype.check
+      );
+    }
   }
 }
