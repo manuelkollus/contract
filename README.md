@@ -35,7 +35,7 @@ to your dependencies.
 ```xml
 <repositories>
   <repository>
-    <id>control</id>
+    <id>contract</id>
     <url>https://maven.pkg.github.com/manuelkollus/contract</url> 
   </repository>
 </repositories>
