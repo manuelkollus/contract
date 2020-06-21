@@ -5,9 +5,11 @@ import io.github.manuelkollus.contract.method.MethodParameter;
 
 @CheckType(
   types = {
+    float.class,
     Float.class,
-    Integer.class,
     int.class,
+    Integer.class,
+    long.class,
     Long.class,
   }
 )
