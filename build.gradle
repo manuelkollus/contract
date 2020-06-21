@@ -1,0 +1,44 @@
+plugins {
+  id 'com.github.johnrengelman.shadow' version '5.2.0'
+  id 'java'
+  id "maven-publish"
+}
+
+group 'io.github.manuelkollus'
+version '1.0.0'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation 'org.aspectj:aspectjrt:1.9.4'
+  implementation 'org.aspectj:aspectjweaver:1.9.4'
+}
+
+shadowJar {
+  baseName = "contract"
+  classifier = ''
+  archiveVersion = "1.0.0"
+}
+
+publishing {
+  publications {
+    maven(MavenPublication) {
+      artifact shadowJar
+      repositories {
+        maven {
+          if (project.hasProperty('gpr.key')) {
+            credentials {
+              username project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+              password project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+            url = uri("https://maven.pkg.github.com/manuelkollus/contract")
+          } else {
+            url 'file://' + rootProject.file('repo').getAbsolutePath()
+          }
+        }
+      }
+    }
+  }
+}
