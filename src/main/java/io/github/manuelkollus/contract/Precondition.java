@@ -41,7 +41,7 @@ public final class Precondition {
 
   private List<ContractFailure> findContractFailures(Method method) {
     List<ContractFailure> failures = new ArrayList<>();
-    for ( MethodParameter parameter : method.parameters() ) {
+    for (MethodParameter parameter : method.parameters()) {
       Check check = findCheckForParameter(parameter);
       if (!check.validateParameter(parameter)) {
         continue;
