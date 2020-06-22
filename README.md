@@ -45,7 +45,7 @@ to your dependencies.
   <dependency>
     <groupId>io.github.manuelkollus</groupId>
     <artifactId>contract</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
   </dependency>
 </dependencies>
 ```
@@ -61,6 +61,6 @@ repositories {
 }
 
 dependencies {
-  compile 'io.github.manuelkollus:contract:1.0.3'
+  compile 'io.github.manuelkollus:contract:1.0.4'
 }
 ```
