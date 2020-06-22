@@ -1,6 +1,6 @@
 # Contract
 [![JDK](https://img.shields.io/badge/java-SE8-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-[![Latest](https://img.shields.io/badge/latest-v1.0.2-blue.svg)](https://github.com/manuelkollus/contract)
+[![Latest](https://img.shields.io/badge/latest-v1.0.3-blue.svg)](https://github.com/manuelkollus/contract)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/407a4d275cb54a678ffbe782116b220c)](https://www.codacy.com/manual/manuelkollus/contract?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=manuelkollus/contract&amp;utm_campaign=Badge_Grade)
 
 Generates preconditions in your Java code. This is solved by the library 'AspectJ', 
@@ -45,7 +45,7 @@ to your dependencies.
   <dependency>
     <groupId>io.github.manuelkollus</groupId>
     <artifactId>contract</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
   </dependency>
 </dependencies>
 ```
@@ -61,6 +61,6 @@ repositories {
 }
 
 dependencies {
-  compile 'io.github.manuelkollus:contract:1.0.2'
+  compile 'io.github.manuelkollus:contract:1.0.3'
 }
 ```

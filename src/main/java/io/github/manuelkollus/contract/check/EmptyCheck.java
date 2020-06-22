@@ -4,7 +4,7 @@ import io.github.manuelkollus.contract.error.ErrorMessage;
 
 public final class EmptyCheck extends AbstractCheck {
   @Override
-  public boolean validateParameter() {
+  public boolean isInvalid() {
     return false;
   }
 

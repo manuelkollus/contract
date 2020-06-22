@@ -15,7 +15,7 @@ public final class UnsignedCheck extends AbstractCheck {
   private static final int ZERO_NUMBER = 0;
 
   @Override
-  public boolean validateParameter() {
+  public boolean isInvalid() {
     MethodParameter parameter = parameter();
     long value = (long) parameter.value();
     return value < ZERO_NUMBER;

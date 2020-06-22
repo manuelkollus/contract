@@ -1,17 +1,22 @@
 package io.github.manuelkollus.contract.method;
 
+import io.github.manuelkollus.contract.Ignored;
+
 public final class MethodParameter {
   private String name;
   private Class<?> declaringType;
+  private Ignored ignored;
   private Object value;
 
   private MethodParameter(
     String name,
     Class<?> declaringType,
+    Ignored ignored,
     Object value
   ) {
     this.name = name;
     this.declaringType = declaringType;
+    this.ignored = ignored;
     this.value = value;
   }
 
@@ -23,6 +28,10 @@ public final class MethodParameter {
     return declaringType;
   }
 
+  public boolean hasNotIgnoredAnnotation() {
+    return ignored == null;
+  }
+
   public Object value() {
     return value;
   }
@@ -30,6 +39,7 @@ public final class MethodParameter {
   public static Builder newBuilder() {
     MethodParameter prototype = new MethodParameter(
       "",
+      null,
       null,
       null
     );
@@ -57,6 +67,11 @@ public final class MethodParameter {
       return this;
     }
 
+    public Builder withIgnored(Ignored ignored) {
+      this.prototype.ignored = ignored;
+      return this;
+    }
+
     public Builder withValue(Object value) {
       this.prototype.value = value;
       return this;
@@ -66,6 +81,7 @@ public final class MethodParameter {
       return new MethodParameter(
         prototype.name,
         prototype.declaringType,
+        prototype.ignored,
         prototype.value
       );
     }

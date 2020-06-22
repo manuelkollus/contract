@@ -10,7 +10,7 @@ public abstract class AbstractCheck {
     this.parameter = MethodParameter.newBuilder().create();
   }
 
-  public abstract boolean validateParameter();
+  public abstract boolean isInvalid();
 
   public abstract ErrorMessage createErrorMessage();
 

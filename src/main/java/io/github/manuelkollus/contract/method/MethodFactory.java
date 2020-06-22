@@ -1,11 +1,13 @@
 package io.github.manuelkollus.contract.method;
 
+import java.lang.reflect.Parameter;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import io.github.manuelkollus.contract.Contract;
+import io.github.manuelkollus.contract.Ignored;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
@@ -49,6 +51,7 @@ public final class MethodFactory {
     return MethodParameter.newBuilder()
       .withName(resolveParameterName(index))
       .withDeclaringType(resolveDeclaringType(index))
+      .withIgnored(resolveIgnoredAnnotation(index))
       .withValue(resolveParameterValue(index))
       .create();
   }
@@ -66,6 +69,14 @@ public final class MethodFactory {
   private Object resolveParameterValue(int index) {
     Object[] arguments = joinPoint.getArgs();
     return arguments[index];
+  }
+
+  private static final Class<? extends Ignored> IGNORED_ANNOTATION = Ignored.class;
+
+  private Ignored resolveIgnoredAnnotation(int index) {
+    Parameter parameter = signature.getMethod()
+      .getParameters()[index];
+    return parameter.getDeclaredAnnotation(IGNORED_ANNOTATION);
   }
 
   public static MethodFactory create(

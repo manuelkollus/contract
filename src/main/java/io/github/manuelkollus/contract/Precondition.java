@@ -43,7 +43,7 @@ public final class Precondition {
     List<ContractFailure> failures = new ArrayList<>();
     for (MethodParameter parameter : method.parameters()) {
       AbstractCheck abstractCheck = findCheckForParameter(parameter);
-      if (!abstractCheck.validateParameter()) {
+      if (!abstractCheck.isInvalid() && parameter.hasNotIgnoredAnnotation()) {
         continue;
       }
       ContractFailure failure = createFailure(method, abstractCheck);
