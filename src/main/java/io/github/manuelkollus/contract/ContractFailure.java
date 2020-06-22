@@ -3,7 +3,6 @@ package io.github.manuelkollus.contract;
 import io.github.manuelkollus.contract.check.AbstractCheck;
 import io.github.manuelkollus.contract.check.EmptyCheck;
 import io.github.manuelkollus.contract.method.Method;
-import io.github.manuelkollus.contract.method.MethodParameter;
 
 public final class ContractFailure {
   private Method method;

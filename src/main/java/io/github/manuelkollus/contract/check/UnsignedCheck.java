@@ -12,8 +12,6 @@ import io.github.manuelkollus.contract.method.MethodParameter;
   }
 )
 public final class UnsignedCheck extends AbstractCheck {
-  public UnsignedCheck() {}
-
   private static final int ZERO_NUMBER = 0;
 
   @Override

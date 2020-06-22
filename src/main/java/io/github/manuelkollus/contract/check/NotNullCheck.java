@@ -10,8 +10,6 @@ import io.github.manuelkollus.contract.method.MethodParameter;
   }
 )
 public final class NotNullCheck extends AbstractCheck {
-  public NotNullCheck() {}
-
   @Override
   public boolean validateParameter() {
     MethodParameter parameter = parameter();

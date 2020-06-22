@@ -3,8 +3,6 @@ package io.github.manuelkollus.contract.check;
 import io.github.manuelkollus.contract.error.ErrorMessage;
 
 public final class EmptyCheck extends AbstractCheck {
-  public EmptyCheck() {}
-
   @Override
   public boolean validateParameter() {
     return false;

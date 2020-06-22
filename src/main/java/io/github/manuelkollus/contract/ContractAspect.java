@@ -6,8 +6,6 @@ import org.aspectj.lang.annotation.Aspect;
 
 @Aspect
 public class ContractAspect {
-  public ContractAspect() {}
-
   @Around("execution(* *(..)) && @annotation(Contract)")
   public Object proceedContract(ProceedingJoinPoint joinPoint) throws Throwable {
     Precondition precondition = Precondition.create(joinPoint);
