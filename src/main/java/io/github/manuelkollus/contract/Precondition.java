@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import io.github.manuelkollus.contract.check.Check;
+import io.github.manuelkollus.contract.check.AbstractCheck;
 import io.github.manuelkollus.contract.check.CheckRepository;
 import io.github.manuelkollus.contract.check.EmptyCheck;
 import io.github.manuelkollus.contract.error.ErrorMessage;
@@ -42,37 +42,40 @@ public final class Precondition {
   private List<ContractFailure> findContractFailures(Method method) {
     List<ContractFailure> failures = new ArrayList<>();
     for (MethodParameter parameter : method.parameters()) {
-      Check check = findCheckForParameter(parameter);
-      if (!check.validateParameter(parameter)) {
+      AbstractCheck abstractCheck = findCheckForParameter(parameter);
+      if (!abstractCheck.validateParameter()) {
         continue;
       }
-      ContractFailure failure = ContractFailure.newBuilder()
-        .withMethod(method)
-        .withParameter(parameter)
-        .withCheck(check)
-        .create();
+      ContractFailure failure = createFailure(method, abstractCheck);
       failures.add(failure);
     }
     return failures;
   }
 
-  private static final Check EMPTY_CHECK = EmptyCheck.create();
+  private static final AbstractCheck EMPTY_CHECK = EmptyCheck.create();
 
-  private Check findCheckForParameter(MethodParameter parameter) {
+  private AbstractCheck findCheckForParameter(MethodParameter parameter) {
     return checkRepository.checks()
       .stream()
       .map(checkClass -> checkRepository.find(checkClass, parameter.declaringType()))
       .filter(Objects::nonNull)
+      .peek(abstractCheck -> abstractCheck.parameter(parameter))
       .findFirst()
       .orElse(EMPTY_CHECK);
+  }
+
+  private ContractFailure createFailure(Method method, AbstractCheck abstractCheck) {
+    return ContractFailure.newBuilder()
+      .withMethod(method)
+      .withCheck(abstractCheck)
+      .create();
   }
 
   private void reportContractFailure(ContractFailure failure) {
     Contract contract = failure.method()
       .contract();
-    MethodParameter parameter = failure.parameter();
-    Check check = failure.check();
-    ErrorMessage errorMessage = check.createErrorMessage(parameter);
+    AbstractCheck check = failure.check();
+    ErrorMessage errorMessage = check.createErrorMessage();
     errorMessage.throwException(contract.error());
   }
 

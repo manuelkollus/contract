@@ -9,11 +9,12 @@ import io.github.manuelkollus.contract.method.MethodParameter;
     Object.class
   }
 )
-public final class NotNullCheck implements Check {
+public final class NotNullCheck extends AbstractCheck {
   public NotNullCheck() {}
 
   @Override
-  public boolean validateParameter(MethodParameter parameter) {
+  public boolean validateParameter() {
+    MethodParameter parameter = parameter();
     Object value = parameter.value();
     return value == null;
   }
@@ -21,9 +22,8 @@ public final class NotNullCheck implements Check {
   private static final String DESCRIPTION_MESSAGE = "%desc%";
 
   @Override
-  public ErrorMessage createErrorMessage(
-    MethodParameter parameter
-  ) {
+  public ErrorMessage createErrorMessage() {
+    MethodParameter parameter = parameter();
     return ErrorMessage.of(
       String.format("value %s cannot be null", parameter.name()),
       DESCRIPTION_MESSAGE

@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'io.github.manuelkollus'
-version '1.0.1'
+version '1.0.2'
 
 repositories {
   mavenCentral()
@@ -19,7 +19,7 @@ dependencies {
 shadowJar {
   baseName = "contract"
   classifier = ''
-  archiveVersion = "1.0.1"
+  archiveVersion = "1.0.2"
 }
 
 publishing {

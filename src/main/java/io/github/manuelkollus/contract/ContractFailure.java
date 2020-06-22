@@ -1,22 +1,19 @@
 package io.github.manuelkollus.contract;
 
-import io.github.manuelkollus.contract.check.Check;
+import io.github.manuelkollus.contract.check.AbstractCheck;
 import io.github.manuelkollus.contract.check.EmptyCheck;
 import io.github.manuelkollus.contract.method.Method;
 import io.github.manuelkollus.contract.method.MethodParameter;
 
 public final class ContractFailure {
   private Method method;
-  private MethodParameter parameter;
-  private Check check;
+  private AbstractCheck check;
 
   private ContractFailure(
     Method method,
-    MethodParameter parameter,
-    Check check
+    AbstractCheck check
   ) {
     this.method = method;
-    this.parameter = parameter;
     this.check = check;
   }
 
@@ -24,18 +21,13 @@ public final class ContractFailure {
     return method;
   }
 
-  public MethodParameter parameter() {
-    return parameter;
-  }
-
-  public Check check() {
+  public AbstractCheck check() {
     return check;
   }
 
   public static Builder newBuilder() {
     ContractFailure prototype = new ContractFailure(
       Method.newBuilder().create(),
-      MethodParameter.newBuilder().create(),
       EmptyCheck.create()
     );
     return newBuilder(prototype);
@@ -57,12 +49,7 @@ public final class ContractFailure {
       return this;
     }
 
-    public Builder withParameter(MethodParameter parameter) {
-      this.prototype.parameter = parameter;
-      return this;
-    }
-
-    public Builder withCheck(Check check) {
+    public Builder withCheck(AbstractCheck check) {
       this.prototype.check = check;
       return this;
     }
@@ -70,7 +57,6 @@ public final class ContractFailure {
     public ContractFailure create() {
       return new ContractFailure(
         prototype.method,
-        prototype.parameter,
         prototype.check
       );
     }

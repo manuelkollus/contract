@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.Objects;
 
 public final class CheckRepository {
-  private final Map<Class<?>, Check> checks;
+  private final Map<Class<?>, AbstractCheck> checks;
 
-  private CheckRepository(Map<Class<?>, Check> checks) {
+  private CheckRepository(Map<Class<?>, AbstractCheck> checks) {
     this.checks = checks;
   }
 
-  public Check find(Class<?> checkClass, Class<?> declaringClass) {
+  public AbstractCheck find(Class<?> checkClass, Class<?> declaringClass) {
     return checks.entrySet()
       .stream()
       .filter(entry -> entry.getKey().equals(checkClass))
@@ -25,7 +25,7 @@ public final class CheckRepository {
   }
 
   private boolean isEntryValid(
-    Map.Entry<Class<?>, Check> entry,
+    Map.Entry<Class<?>, AbstractCheck> entry,
     Class<?> declaringClass
   ) {
     Class<?> checkClass = entry.getKey();
@@ -49,13 +49,13 @@ public final class CheckRepository {
   }
 
   public static CheckRepository create() {
-    Map<Class<?>, Check> checks = new HashMap<>();
+    Map<Class<?>, AbstractCheck> checks = new HashMap<>();
     checks.put(NotNullCheck.class, new NotNullCheck());
     checks.put(UnsignedCheck.class, new UnsignedCheck());
     return create(checks);
   }
 
-  public static CheckRepository create(Map<Class<?>, Check> checks) {
+  public static CheckRepository create(Map<Class<?>, AbstractCheck> checks) {
     Objects.requireNonNull(checks);
     return new CheckRepository(checks);
   }

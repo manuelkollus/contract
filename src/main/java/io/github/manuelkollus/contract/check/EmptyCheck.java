@@ -1,18 +1,17 @@
 package io.github.manuelkollus.contract.check;
 
 import io.github.manuelkollus.contract.error.ErrorMessage;
-import io.github.manuelkollus.contract.method.MethodParameter;
 
-public final class EmptyCheck implements Check {
+public final class EmptyCheck extends AbstractCheck {
   public EmptyCheck() {}
 
   @Override
-  public boolean validateParameter(MethodParameter parameter) {
+  public boolean validateParameter() {
     return false;
   }
 
   @Override
-  public ErrorMessage createErrorMessage(MethodParameter parameter) {
+  public ErrorMessage createErrorMessage() {
     return null;
   }
 
