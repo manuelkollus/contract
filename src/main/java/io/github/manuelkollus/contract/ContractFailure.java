@@ -8,10 +8,7 @@ public final class ContractFailure {
   private Method method;
   private AbstractCheck check;
 
-  private ContractFailure(
-    Method method,
-    AbstractCheck check
-  ) {
+  private ContractFailure(Method method, AbstractCheck check) {
     this.method = method;
     this.check = check;
   }
